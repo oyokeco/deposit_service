@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+
+	<appender name="LOG_FILE_APPENDER_PROD" class="ch.qos.logback.core.FileAppender">
+		<file>/Users/oyo/logs/messages</file>
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="LOG_FILE_APPENDER_PROD_LOGSTASH" class="ch.qos.logback.core.FileAppender">
+		<file>/Users/oyo/logs/logstash</file>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- <springProfile name="prod,production"> -->
+	<logger name="dataLogger" level="DEBUG" additivity="false">
+		<appender-ref ref="LOG_FILE_APPENDER_PROD" />
+	</logger>
+	<logger name="dataLogger" level="WARN" additivity="false">
+		<appender-ref ref="LOG_FILE_APPENDER_PROD" />
+	</logger>
+	<logger name="dataLogger" level="INFO" additivity="false">
+		<appender-ref ref="LOG_FILE_APPENDER_PROD" />
+	</logger>
+	<logger name="logstash" level="WARN" additivity="false">
+		<appender-ref ref="LOG_FILE_APPENDER_PROD_LOGSTASH" />
+	</logger>
+</configuration>
